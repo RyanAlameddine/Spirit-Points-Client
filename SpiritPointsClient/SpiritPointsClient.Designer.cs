@@ -32,21 +32,25 @@
             this.Title = new System.Windows.Forms.Label();
             this.name = new System.Windows.Forms.Label();
             this.Grade = new System.Windows.Forms.Label();
-            this.SpiritPointValue = new System.Windows.Forms.TextBox();
             this.Worth = new System.Windows.Forms.Label();
             this.Accept = new System.Windows.Forms.Button();
             this.Deny = new System.Windows.Forms.Button();
             this.refresh = new System.Windows.Forms.Button();
             this.Version = new System.Windows.Forms.Label();
+            this.Remaining = new System.Windows.Forms.Label();
+            this.Date = new System.Windows.Forms.Label();
+            this.SpiritPointValue = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SpiritPointValue)).BeginInit();
             this.SuspendLayout();
             // 
             // PictureBox
             // 
-            this.PictureBox.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.PictureBox.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.PictureBox.Location = new System.Drawing.Point(434, 12);
             this.PictureBox.Name = "PictureBox";
             this.PictureBox.Size = new System.Drawing.Size(568, 516);
+            this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PictureBox.TabIndex = 0;
             this.PictureBox.TabStop = false;
             // 
@@ -74,26 +78,17 @@
             // 
             this.Grade.AutoSize = true;
             this.Grade.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.Grade.Location = new System.Drawing.Point(15, 124);
+            this.Grade.Location = new System.Drawing.Point(15, 110);
             this.Grade.Name = "Grade";
             this.Grade.Size = new System.Drawing.Size(97, 31);
             this.Grade.TabIndex = 3;
             this.Grade.Text = "Grade:";
             // 
-            // SpiritPointValue
-            // 
-            this.SpiritPointValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpiritPointValue.Location = new System.Drawing.Point(309, 171);
-            this.SpiritPointValue.Name = "SpiritPointValue";
-            this.SpiritPointValue.Size = new System.Drawing.Size(100, 62);
-            this.SpiritPointValue.TabIndex = 4;
-            this.SpiritPointValue.Text = "10";
-            // 
             // Worth
             // 
             this.Worth.AutoSize = true;
             this.Worth.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Worth.Location = new System.Drawing.Point(15, 192);
+            this.Worth.Location = new System.Drawing.Point(6, 211);
             this.Worth.Name = "Worth";
             this.Worth.Size = new System.Drawing.Size(222, 31);
             this.Worth.TabIndex = 5;
@@ -104,7 +99,7 @@
             this.Accept.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.Accept.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Accept.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Accept.Location = new System.Drawing.Point(12, 407);
+            this.Accept.Location = new System.Drawing.Point(12, 260);
             this.Accept.Name = "Accept";
             this.Accept.Size = new System.Drawing.Size(119, 121);
             this.Accept.TabIndex = 6;
@@ -117,7 +112,7 @@
             this.Deny.BackColor = System.Drawing.Color.DarkRed;
             this.Deny.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.Deny.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Deny.Location = new System.Drawing.Point(137, 407);
+            this.Deny.Location = new System.Drawing.Point(137, 260);
             this.Deny.Name = "Deny";
             this.Deny.Size = new System.Drawing.Size(119, 121);
             this.Deny.TabIndex = 7;
@@ -130,7 +125,7 @@
             this.refresh.BackColor = System.Drawing.Color.Navy;
             this.refresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.refresh.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.refresh.Location = new System.Drawing.Point(309, 407);
+            this.refresh.Location = new System.Drawing.Point(309, 260);
             this.refresh.Name = "refresh";
             this.refresh.Size = new System.Drawing.Size(119, 121);
             this.refresh.TabIndex = 8;
@@ -148,18 +143,68 @@
             this.Version.TabIndex = 9;
             this.Version.Text = "1.1";
             // 
+            // Remaining
+            // 
+            this.Remaining.AutoSize = true;
+            this.Remaining.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Remaining.Location = new System.Drawing.Point(15, 497);
+            this.Remaining.Name = "Remaining";
+            this.Remaining.Size = new System.Drawing.Size(264, 31);
+            this.Remaining.TabIndex = 10;
+            this.Remaining.Text = "Pictures Remaining: ";
+            // 
+            // Date
+            // 
+            this.Date.AutoSize = true;
+            this.Date.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.Date.Location = new System.Drawing.Point(15, 141);
+            this.Date.Name = "Date";
+            this.Date.Size = new System.Drawing.Size(87, 31);
+            this.Date.TabIndex = 11;
+            this.Date.Text = "Date: ";
+            // 
+            // SpiritPointValue
+            // 
+            this.SpiritPointValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.SpiritPointValue.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.SpiritPointValue.Location = new System.Drawing.Point(234, 209);
+            this.SpiritPointValue.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.SpiritPointValue.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.SpiritPointValue.Name = "SpiritPointValue";
+            this.SpiritPointValue.Size = new System.Drawing.Size(194, 38);
+            this.SpiritPointValue.TabIndex = 12;
+            this.SpiritPointValue.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
             // SpiritPointsClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1014, 540);
+            this.Controls.Add(this.SpiritPointValue);
+            this.Controls.Add(this.Date);
+            this.Controls.Add(this.Remaining);
             this.Controls.Add(this.Version);
             this.Controls.Add(this.refresh);
             this.Controls.Add(this.Deny);
             this.Controls.Add(this.Accept);
             this.Controls.Add(this.Worth);
-            this.Controls.Add(this.SpiritPointValue);
             this.Controls.Add(this.Grade);
             this.Controls.Add(this.name);
             this.Controls.Add(this.Title);
@@ -167,6 +212,7 @@
             this.Name = "SpiritPointsClient";
             this.Text = "Spirit Point Client";
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SpiritPointValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,12 +224,14 @@
         private System.Windows.Forms.Label Title;
         private System.Windows.Forms.Label name;
         private System.Windows.Forms.Label Grade;
-        private System.Windows.Forms.TextBox SpiritPointValue;
         private System.Windows.Forms.Label Worth;
         private System.Windows.Forms.Button Accept;
         private System.Windows.Forms.Button Deny;
         private System.Windows.Forms.Button refresh;
         private System.Windows.Forms.Label Version;
+        private System.Windows.Forms.Label Remaining;
+        private System.Windows.Forms.Label Date;
+        private System.Windows.Forms.NumericUpDown SpiritPointValue;
     }
 }
 

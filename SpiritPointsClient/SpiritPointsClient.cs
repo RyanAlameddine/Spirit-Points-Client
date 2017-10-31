@@ -16,6 +16,8 @@ namespace SpiritPointsClient
         int[] scores = new int[5];
         DataHandler dataHandler = new DataHandler();
 
+        Submission currentSubmission;
+
         public SpiritPointsClient()
         {
             InitializeComponent();
@@ -23,14 +25,9 @@ namespace SpiritPointsClient
 
         private void Accept_Click(object sender, EventArgs e)
         {
-            /*
-                Ninth = "B",
-                Tenth = "C",
-                Eleventh = "D",
-                Twelfth = "E",
-                Middle = "F"
-            */
-            //SheetsManager.AddPoints(10, 'B', "10/31/2017");
+            if (currentSubmission == null) return;
+
+            SheetsManager.AddPoints((float) SpiritPointValue.Value, dataHandler.grades[currentSubmission.grade], currentSubmission.date);
         }
 
         private void Deny_Click(object sender, EventArgs e)
@@ -41,6 +38,16 @@ namespace SpiritPointsClient
         private void refresh_Click(object sender, EventArgs e)
         {
             dataHandler.LoadData();
+            DisplaySubmission(dataHandler.NextPicture(Remaining));
+        }
+
+        void DisplaySubmission(Submission submission)
+        {
+            PictureBox.Image = Image.FromFile(submission.path);
+            name .Text = "Name: "  + submission.name;
+            Grade.Text = "Grade: " + submission.grade;
+            Date .Text = "Date: "  + submission.date;
+            currentSubmission = submission;
         }
     }
 }

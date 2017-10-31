@@ -89,7 +89,7 @@ namespace SpiritPointsClient
             return matching;
         }
 
-        static int FindCurrentPoints(char gradeLetter, int dateRow)
+        static float FindCurrentPoints(char gradeLetter, int dateRow)
         {
             // Define request parameters. Spirit Points 1qUOR2PH9xDhnlcazhRDe4_EQ6zdpZVAK923nHXdKsZY
             String spreadsheetId = "1qUOR2PH9xDhnlcazhRDe4_EQ6zdpZVAK923nHXdKsZY";
@@ -100,10 +100,10 @@ namespace SpiritPointsClient
             ValueRange response = request.Execute();
             IList<IList<Object>> values = response.Values;
 
-            return int.Parse(values[0][0].ToString());
+            return float.Parse(values[0][0].ToString());
         }
 
-        public static void AddPoints(int points, char gradeLetter, string date)
+        public static void AddPoints(float points, char gradeLetter, string date)
         {
             int dateRow = FindDateRow(date);
             points = FindCurrentPoints(gradeLetter, dateRow) + points;
