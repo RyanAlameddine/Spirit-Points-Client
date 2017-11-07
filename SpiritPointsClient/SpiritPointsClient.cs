@@ -28,21 +28,33 @@ namespace SpiritPointsClient
             if (currentSubmission == null) return;
 
             SheetsManager.AddPoints((float) SpiritPointValue.Value, dataHandler.grades[currentSubmission.grade], currentSubmission.date);
+            dataHandler.ReadCount++;
+
+            NextSubmission();
         }
 
         private void Deny_Click(object sender, EventArgs e)
         {
+            if (currentSubmission == null) return;
+            dataHandler.ReadCount++;
 
+            NextSubmission();
         }
 
         private void refresh_Click(object sender, EventArgs e)
         {
             dataHandler.LoadData();
-            DisplaySubmission(dataHandler.NextPicture(Remaining));
+            NextSubmission();
         }
 
-        void DisplaySubmission(Submission submission)
+        void NextSubmission()
         {
+            Submission submission = dataHandler.NextPicture(Remaining);
+            if(submission == null)
+            {
+                PictureBox.Image = null;
+                return;
+            }
             PictureBox.Image = Image.FromFile(submission.path);
             name .Text = "Name: "  + submission.name;
             Grade.Text = "Grade: " + submission.grade;

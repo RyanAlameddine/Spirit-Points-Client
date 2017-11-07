@@ -21,6 +21,21 @@ namespace SpiritPointsClient
 
         Queue<Submission> sortedData = new Queue<Submission>();
 
+        int readCount = 0;
+        public int ReadCount
+        {
+            get
+            { 
+                return readCount;
+            }
+            set
+            {
+                readCount = value;
+                string[] lines = { readCount + "" };
+                File.WriteAllLines(Path.Combine(dataPath, "readCount.txt"), lines);
+            }
+        }
+
         //                grade, column
         public Dictionary<string, char> grades = new Dictionary<string, char>(); 
 
@@ -43,6 +58,7 @@ namespace SpiritPointsClient
 
         public void LoadData()
         {
+            readCount = int.Parse(File.ReadAllLines(Path.Combine(dataPath, "readCount.txt"))[0]);
             Seventh  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "ClassOf2023")).ToList();
             Eighth   = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "ClassOf2022")).ToList();
             Ninth    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "ClassOf2021")).ToList();
@@ -64,6 +80,17 @@ namespace SpiritPointsClient
                 }
             }
 
+            //cull values below current
+            for (int i = 0; i < submissions.Count(); i++)
+            {
+                if (submissions[i].fileNumber < ReadCount)
+                {
+                    submissions.Remove(submissions[i]);
+                    i--;
+                }
+            }
+
+            //Sort Submissions
             while(submissions.Count() > 0)
             {
                 int smallest = 0;
@@ -84,7 +111,7 @@ namespace SpiritPointsClient
             {
                 return null;
             }
-            remaining.Text = "Pictures Remaining: " + (sortedData.Count - 1);
+            remaining.Text = "Pictures Remaining: " + (sortedData.Count);
             return sortedData.Dequeue();
         }
     }
@@ -114,6 +141,6 @@ public class Submission
         name = noExtension.Remove(noExtension.Count() - 1 - subExtension.Count());
         name = name.Replace('_', ' ');
 
-        date = File.GetCreationTime(path).ToString("MM/dd/yyyy");
+        date = File.GetCreationTime(path).ToString("M/d/yyyy");
     }
 }
