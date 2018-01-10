@@ -36,6 +36,7 @@ namespace SpiritPointsClient
         private void Deny_Click(object sender, EventArgs e)
         {
             if (currentSubmission == null) return;
+            EventBox.Clear();
             dataHandler.ReadCount++;
 
             NextSubmission();
@@ -44,6 +45,7 @@ namespace SpiritPointsClient
         private void refresh_Click(object sender, EventArgs e)
         {
             dataHandler.LoadData();
+            EventBox.Clear();
             NextSubmission();
         }
 
@@ -60,6 +62,12 @@ namespace SpiritPointsClient
             Grade.Text = "Grade: " + submission.grade;
             Date .Text = "Date: "  + submission.date;
             currentSubmission = submission;
+        }
+
+        private void SettingsAndReset_Click(object sender, EventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.Show();
         }
     }
 }

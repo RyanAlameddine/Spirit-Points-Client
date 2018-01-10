@@ -40,6 +40,9 @@
             this.Remaining = new System.Windows.Forms.Label();
             this.Date = new System.Windows.Forms.Label();
             this.SpiritPointValue = new System.Windows.Forms.NumericUpDown();
+            this.SettingsAndReset = new System.Windows.Forms.Button();
+            this.EventBox = new System.Windows.Forms.TextBox();
+            this.EventLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpiritPointValue)).BeginInit();
             this.SuspendLayout();
@@ -192,12 +195,45 @@
             0,
             0});
             // 
+            // SettingsAndReset
+            // 
+            this.SettingsAndReset.BackColor = System.Drawing.Color.White;
+            this.SettingsAndReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SettingsAndReset.Location = new System.Drawing.Point(78, 425);
+            this.SettingsAndReset.Name = "SettingsAndReset";
+            this.SettingsAndReset.Size = new System.Drawing.Size(266, 48);
+            this.SettingsAndReset.TabIndex = 13;
+            this.SettingsAndReset.Text = "Settings and Reset";
+            this.SettingsAndReset.UseVisualStyleBackColor = false;
+            this.SettingsAndReset.Click += new System.EventHandler(this.SettingsAndReset_Click);
+            // 
+            // EventBox
+            // 
+            this.EventBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EventBox.Location = new System.Drawing.Point(113, 172);
+            this.EventBox.Name = "EventBox";
+            this.EventBox.Size = new System.Drawing.Size(315, 31);
+            this.EventBox.TabIndex = 14;
+            // 
+            // EventLabel
+            // 
+            this.EventLabel.AutoSize = true;
+            this.EventLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.EventLabel.Location = new System.Drawing.Point(15, 172);
+            this.EventLabel.Name = "EventLabel";
+            this.EventLabel.Size = new System.Drawing.Size(92, 31);
+            this.EventLabel.TabIndex = 15;
+            this.EventLabel.Text = "Event:";
+            // 
             // SpiritPointsClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1014, 540);
+            this.Controls.Add(this.EventLabel);
+            this.Controls.Add(this.EventBox);
+            this.Controls.Add(this.SettingsAndReset);
             this.Controls.Add(this.SpiritPointValue);
             this.Controls.Add(this.Date);
             this.Controls.Add(this.Remaining);
@@ -233,6 +269,9 @@
         private System.Windows.Forms.Label Remaining;
         private System.Windows.Forms.Label Date;
         private System.Windows.Forms.NumericUpDown SpiritPointValue;
+        private System.Windows.Forms.Button SettingsAndReset;
+        private System.Windows.Forms.TextBox EventBox;
+        private System.Windows.Forms.Label EventLabel;
     }
 }
 

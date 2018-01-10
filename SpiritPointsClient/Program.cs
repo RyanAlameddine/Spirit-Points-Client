@@ -8,6 +8,19 @@ namespace SpiritPointsClient
 {
     static class Program
     {
+        public static string SpreadSheetId
+        {
+            get
+            {
+                return System.IO.File.ReadAllLines("SpreadSheetId.txt")[0];
+            }
+            set
+            {
+                string[] lines = { value };
+                System.IO.File.WriteAllLines("SpreadSheetId.txt", lines);
+            }
+        }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

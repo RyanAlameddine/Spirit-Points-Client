@@ -49,10 +49,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>9B1A9B39FE0C0C522D8A62CAE3474979B241D8CA</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>2BDB78333C82AA53EB2D00D36ABADA71922A406F</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>SpiritPointsClient_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>SpiritPointsClient_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -96,6 +96,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataHandler.cs" />
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="SheetsManager.cs" />
     <Compile Include="SpiritPointsClient.cs">
       <SubType>Form</SubType>
@@ -105,6 +111,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SpiritPointsClient.resx">
       <DependentUpon>SpiritPointsClient.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +139,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="SpiritPointsClient_1_TemporaryKey.pfx" />
     <None Include="SpiritPointsClient_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataPath.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SpreadSheetId.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

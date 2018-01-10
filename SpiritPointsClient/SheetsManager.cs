@@ -15,20 +15,13 @@ namespace SpiritPointsClient
 {
     public class SheetsManager
     {
+        
         // If modifying these scopes, delete your previously saved credentials
         // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
         static string[] Scopes = { SheetsService.Scope.Spreadsheets };
         static string ApplicationName = "Spirit Points Client";
         static SheetsService service;
-
-        /*
-            Ninth = "B",
-            Tenth = "C",
-            Eleventh = "D",
-            Twelfth = "E",
-            Middle = "F"
-        */
-
+        
         static SheetsManager()
         {
             UserCredential credential;
@@ -57,38 +50,6 @@ namespace SpiritPointsClient
             });
         }
 
-        static int FindDateRow(string date)
-        {
-            // Define request parameters. Spirit Points 1qUOR2PH9xDhnlcazhRDe4_EQ6zdpZVAK923nHXdKsZY
-            String spreadsheetId = "1qUOR2PH9xDhnlcazhRDe4_EQ6zdpZVAK923nHXdKsZY";
-            String range = "SPData!A:A";
-            SpreadsheetsResource.ValuesResource.GetRequest request =
-                    service.Spreadsheets.Values.Get(spreadsheetId, range);
-
-            ValueRange response = request.Execute();
-            IList<IList<Object>> values = response.Values;
-            int matching = -1;
-            //values[Row#][ColumnABC]
-            if (values != null && values.Count > 0)
-            {
-                for(int i = 0; i < values.Count; i++)
-                {
-                    if(values[i][0].ToString() == date)
-                    {
-                        matching = i + 1;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                throw new FileNotFoundException("Could not find google sheet");
-            }
-            if (matching == -1) throw new Exception("Date not found");
-
-            return matching;
-        }
-
         static float FindCurrentPoints(char gradeLetter, int dateRow)
         {
             // Define request parameters. Spirit Points 1qUOR2PH9xDhnlcazhRDe4_EQ6zdpZVAK923nHXdKsZY
@@ -103,17 +64,141 @@ namespace SpiritPointsClient
             return float.Parse(values[0][0].ToString());
         }
 
-        public static void AddPoints(float points, char gradeLetter, string date)
+        public static void AddPoints(string spreadsheetName, float points, string name, string eventName)
         {
-            int dateRow = FindDateRow(date);
-            points = FindCurrentPoints(gradeLetter, dateRow) + points;
-            String spreadsheetId = "1qUOR2PH9xDhnlcazhRDe4_EQ6zdpZVAK923nHXdKsZY";
-            String range = "SPData!" + gradeLetter + dateRow;
+            int nameRow = FindNameRow(spreadsheetName, name);
+
+            String spreadsheetId = Program.SpreadSheetId;
+
+            int row = FindNameRow(spreadsheetName, name);
+            int columnIndex = FindActiveColumn(spreadsheetName, row);
+            string column = letterFromIndex(columnIndex);
+
+            String range = $"{spreadsheetName}!{column}{row}:{letterFromIndex(columnIndex + 1)}{row}";
             ValueRange valueRange = new ValueRange();
-            Object[] value = new Object[1];
-            value[0] = points;
+            Object[] value = { eventName, points };
             valueRange.Values = new List<IList<Object>>();
             valueRange.Values.Add(value);
+            var request = service.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+            UpdateValuesResponse result = request.Execute();
+        }
+        static int FindNameRow(string spreadsheetName, string name)
+        {
+            // Define request parameters. Spirit Points 1qUOR2PH9xDhnlcazhRDe4_EQ6zdpZVAK923nHXdKsZY
+            String spreadsheetId = Program.SpreadSheetId;
+            String range = $"{spreadsheetName}!A:A";
+            SpreadsheetsResource.ValuesResource.GetRequest request =
+                    service.Spreadsheets.Values.Get(spreadsheetId, range);
+
+            ValueRange response = request.Execute();
+            IList<IList<Object>> values = response.Values;
+            int matching = -1;
+            //values[Row#][ColumnABC]
+            if (values != null && values.Count > 0)
+            {
+                for (int i = 0; i < values.Count; i++)
+                {
+                    if (values[i][0].ToString() == name)
+                    {
+                        matching = i + 1;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                throw new FileNotFoundException("Could not find google sheet");
+            }
+            if (matching == -1) throw new Exception("Date not found");
+
+            return matching;
+        }
+        static int FindActiveColumn(string spreadsheetName, int row)
+        {
+            // Define request parameters.
+            String spreadsheetId = Program.SpreadSheetId;
+            String range = $"{spreadsheetName}!C{row}:{row}";
+            SpreadsheetsResource.ValuesResource.GetRequest request =
+                    service.Spreadsheets.Values.Get(spreadsheetId, range);
+
+            ValueRange response = request.Execute();
+            IList<IList<Object>> values = response.Values;
+            int matching = -1;
+            //values[Row#][ColumnABC]
+            if (values != null && values[0].Count > 0)
+            {
+                matching = values[0].IndexOf("");
+            }
+            else
+            {
+                throw new FileNotFoundException("Could not find google sheet");
+            }
+            if (matching == -1) throw new Exception("Date not found");
+
+            return matching;
+        }
+        private static string letterFromIndex(int index)
+        {
+            int dividend = index;
+            string columnName = String.Empty;
+            int modulo;
+
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
+                dividend = (int)((dividend - modulo) / 26);
+            }
+
+            return columnName;
+        }
+
+
+        public static void CreateSheet(string sheetName, string combinedNames)
+        {
+            List<string> names = new List<string>(combinedNames.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+
+            String spreadsheetId = Program.SpreadSheetId;
+
+            setTitles(sheetName, spreadsheetId);
+
+            insertData(sheetName, spreadsheetId, names);
+
+            #region finalData
+            String range = sheetName + "!A1:B1";
+            ValueRange valueRange = new ValueRange();
+            Object[] value = { "Total Score", $"=SUM(B3:B{names.Count + 3 - 1})" };
+            valueRange.Values = new List<IList<Object>>();
+            valueRange.Values.Add(value);
+            var request = service.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+            UpdateValuesResponse result = request.Execute();
+            #endregion finalData
+        }
+        private static void setTitles(string sheetName, string spreadsheetId)
+        {
+            String range = sheetName + "!A2:H2";
+            ValueRange valueRange = new ValueRange();
+            Object[] value = { "Name", "Individual Score", "Event", "Points", "Event", "Points", "Event", "Points" };
+            valueRange.Values = new List<IList<Object>>();
+            valueRange.Values.Add(value);
+            var request = service.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+            UpdateValuesResponse result = request.Execute();
+        }
+        private static void insertData(string sheetName, string spreadsheetId, List<string> names)
+        {
+            int count = names.Count;
+
+            String range = sheetName + "!A3:B" + (3 + count - 1);
+            ValueRange valueRange = new ValueRange();
+            valueRange.Values = new List<IList<Object>>();
+            for (int i = 0; i < count; i++)
+            {
+                Object[] func = { names[i], $"=SUM(C{i + 3}:{i + 3})" };
+                valueRange.Values.Add(func);
+            }
             var request = service.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
             request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
             UpdateValuesResponse result = request.Execute();

@@ -12,12 +12,11 @@ namespace SpiritPointsClient
     public class DataHandler
     {
         string dataPath        = File.ReadAllLines("DataPath.txt")[0];
-        List<string> Seventh   = new List<string>();
-        List<string> Eighth    = new List<string>();
-        List<string> Ninth     = new List<string>();
-        List<string> Tenth     = new List<string>();
-        List<string> Eleventh  = new List<string>();
-        List<string> Twelfth   = new List<string>();
+        List<string> Middle   = new List<string>();
+        List<string> Freshman     = new List<string>();
+        List<string> Softmore     = new List<string>();
+        List<string> Junior  = new List<string>();
+        List<string> Senior   = new List<string>();
 
         Queue<Submission> sortedData = new Queue<Submission>();
 
@@ -36,37 +35,16 @@ namespace SpiritPointsClient
             }
         }
 
-        //                grade, column
-        public Dictionary<string, char> grades = new Dictionary<string, char>(); 
-
-        public DataHandler()
-        {
-            /*
-                Ninth    = 'B',
-                Tenth    = 'C',
-                Eleventh = 'D',
-                Twelfth  = 'E',
-                Middle   = 'F'
-            */
-            grades.Add("Class Of 2021", 'B');
-            grades.Add("Class Of 2020", 'C');
-            grades.Add("Class Of 2019", 'D');
-            grades.Add("Class Of 2018", 'E');
-            grades.Add("Class Of 2022", 'F');
-            grades.Add("Class Of 2023", 'F');
-        }
-
         public void LoadData()
         {
             readCount = int.Parse(File.ReadAllLines(Path.Combine(dataPath, "readCount.txt"))[0]);
-            Seventh  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "ClassOf2023")).ToList();
-            Eighth   = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "ClassOf2022")).ToList();
-            Ninth    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "ClassOf2021")).ToList();
-            Tenth    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "ClassOf2020")).ToList();
-            Eleventh = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "ClassOf2019")).ToList();
-            Twelfth  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "ClassOf2018")).ToList();
+            Middle  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Middle")).ToList();
+            Freshman    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Freshman")).ToList();
+            Softmore    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Softmore")).ToList();
+            Junior = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Junior")).ToList();
+            Senior  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Senior")).ToList();
             sortedData.Clear();
-            analyzeSubmissions(Seventh, Eighth, Ninth, Tenth, Eleventh, Twelfth);
+            analyzeSubmissions(Middle, Freshman, Softmore, Junior, Senior);
         }
 
         void analyzeSubmissions(params List<string>[] toSort)
@@ -133,8 +111,6 @@ public class Submission
         fileNumber = int.Parse(subExtension);
 
         grade = Path.GetFileName(Path.GetDirectoryName(path));
-        grade = grade.Insert(7, " ");
-        grade = grade.Insert(5, " ");
 
         string noExtension = Path.GetFileNameWithoutExtension(path);
 
