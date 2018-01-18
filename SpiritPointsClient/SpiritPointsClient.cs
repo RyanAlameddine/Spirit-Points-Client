@@ -27,8 +27,9 @@ namespace SpiritPointsClient
         {
             if (currentSubmission == null) return;
 
-            SheetsManager.AddPoints((float) SpiritPointValue.Value, dataHandler.grades[currentSubmission.grade], currentSubmission.date);
+            SheetsManager.AddPoints(currentSubmission.grade, (float) SpiritPointValue.Value, currentSubmission.name, EventBox.Text);
             dataHandler.ReadCount++;
+            EventBox.Text = "";
 
             NextSubmission();
         }
@@ -52,16 +53,22 @@ namespace SpiritPointsClient
         void NextSubmission()
         {
             Submission submission = dataHandler.NextPicture(Remaining);
-            if(submission == null)
+            currentSubmission = submission;
+            if (submission == null)
             {
                 PictureBox.Image = null;
+                name .Text = "Name:";
+                Grade.Text = "Grade:";
+                Date .Text = "Date:";
+
+                Remaining.Text = "Remaining: 0";
+
                 return;
             }
             PictureBox.Image = Image.FromFile(submission.path);
             name .Text = "Name: "  + submission.name;
             Grade.Text = "Grade: " + submission.grade;
             Date .Text = "Date: "  + submission.date;
-            currentSubmission = submission;
         }
 
         private void SettingsAndReset_Click(object sender, EventArgs e)

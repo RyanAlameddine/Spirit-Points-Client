@@ -79,9 +79,9 @@ namespace SpiritPointsClient
             Object[] value = { eventName, points };
             valueRange.Values = new List<IList<Object>>();
             valueRange.Values.Add(value);
-            var request = service.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
-            request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
-            UpdateValuesResponse result = request.Execute();
+            var request = service.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
+            request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            AppendValuesResponse result = request.Execute();
         }
         static int FindNameRow(string spreadsheetName, string name)
         {
@@ -114,6 +114,73 @@ namespace SpiritPointsClient
 
             return matching;
         }
+
+        public static string CreateXML(List<string> middle, List<string> freshman, List<string> softmore, List<string> junior, List<string> senior)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine("<optgroup label=\"Middle\">");
+            foreach (string name in middle)
+            {
+                stringBuilder.Append("<option value=\"Middle.");
+                stringBuilder.Append(name);
+                stringBuilder.Append("\">");
+                stringBuilder.Append(name);
+                stringBuilder.AppendLine("</option>");
+            }
+            stringBuilder.AppendLine("</optgroup>");
+
+
+            stringBuilder.AppendLine("<optgroup label=\"Freshman\">");
+            foreach (string name in freshman)
+            {
+                stringBuilder.Append("<option value=\"Freshman.");
+                stringBuilder.Append(name);
+                stringBuilder.Append("\">");
+                stringBuilder.Append(name);
+                stringBuilder.AppendLine("</option>");
+            }
+            stringBuilder.AppendLine("</optgroup>");
+
+
+            stringBuilder.AppendLine("<optgroup label=\"Softmore\">");
+            foreach (string name in softmore)
+            {
+                stringBuilder.Append("<option value=\"Softmore.");
+                stringBuilder.Append(name);
+                stringBuilder.Append("\">");
+                stringBuilder.Append(name);
+                stringBuilder.AppendLine("</option>");
+            }
+            stringBuilder.AppendLine("</optgroup>");
+
+
+            stringBuilder.AppendLine("<optgroup label=\"Junior\">");
+            foreach (string name in junior)
+            {
+                stringBuilder.Append("<option value=\"Junior.");
+                stringBuilder.Append(name);
+                stringBuilder.Append("\">");
+                stringBuilder.Append(name);
+                stringBuilder.AppendLine("</option>");
+            }
+            stringBuilder.AppendLine("</optgroup>");
+
+
+            stringBuilder.AppendLine("<optgroup label=\"Senior\">");
+            foreach (string name in senior)
+            {
+                stringBuilder.Append("<option value=\"Senior.");
+                stringBuilder.Append(name);
+                stringBuilder.Append("\">");
+                stringBuilder.Append(name);
+                stringBuilder.AppendLine("</option>");
+            }
+            stringBuilder.AppendLine("</optgroup>");
+
+            return stringBuilder.ToString();
+        }
+
         static int FindActiveColumn(string spreadsheetName, int row)
         {
             // Define request parameters.
@@ -124,19 +191,9 @@ namespace SpiritPointsClient
 
             ValueRange response = request.Execute();
             IList<IList<Object>> values = response.Values;
-            int matching = -1;
             //values[Row#][ColumnABC]
-            if (values != null && values[0].Count > 0)
-            {
-                matching = values[0].IndexOf("");
-            }
-            else
-            {
-                throw new FileNotFoundException("Could not find google sheet");
-            }
-            if (matching == -1) throw new Exception("Date not found");
-
-            return matching;
+            if (values == null) return 3;
+            return values[0].Count + 3;
         }
         private static string letterFromIndex(int index)
         {
@@ -155,10 +212,8 @@ namespace SpiritPointsClient
         }
 
 
-        public static void CreateSheet(string sheetName, string combinedNames)
+        public static void CreateSheet(string sheetName, List<string> names)
         {
-            List<string> names = new List<string>(combinedNames.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
-
             String spreadsheetId = Program.SpreadSheetId;
 
             setTitles(sheetName, spreadsheetId);

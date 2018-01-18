@@ -103,13 +103,21 @@ namespace SpiritPointsClient
             {
                 Senior = MainBox.Text;
                 Info.Text = "Generating google sheets. Please wait.";
-                SheetsManager.CreateSheet("Middle"  , Middle  );
-                SheetsManager.CreateSheet("Freshman", Freshman);
-                SheetsManager.CreateSheet("Softmore", Softmore);
-                SheetsManager.CreateSheet("Junior"  , Junior  );
-                SheetsManager.CreateSheet("Senior"  , Senior  );
-                Info.Text = "";
-                MainBox.Text = "Successfully created sheets. You may close this window and continue using the program normally.";
+
+                List<string> middle   = new List<string>(Middle  .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> freshman = new List<string>(Freshman.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> softmore = new List<string>(Softmore.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> junior   = new List<string>(Junior  .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> senior   = new List<string>(Senior  .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+
+                SheetsManager.CreateSheet("Middle"  , middle  );
+                SheetsManager.CreateSheet("Freshman", freshman);
+                SheetsManager.CreateSheet("Softmore", softmore);
+                SheetsManager.CreateSheet("Junior"  , junior  );
+                SheetsManager.CreateSheet("Senior"  , senior  );
+                Info.Text = "Generating xml data. Please wait.";
+                MainBox.Text = SheetsManager.CreateXML(middle, freshman, softmore, junior, senior);
+                Info.Text = "Please find the file on Spirit Points Server\nnamed Index.cshtml and find the message saying\nto replace code. Replace the code between the\nmessages with the following code. The reset process is done.";
                 state++;
             }
             else if(state == 6)

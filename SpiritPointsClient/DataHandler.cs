@@ -11,11 +11,11 @@ namespace SpiritPointsClient
 {
     public class DataHandler
     {
-        string dataPath        = File.ReadAllLines("DataPath.txt")[0];
+        string dataPath       = File.ReadAllLines("DataPath.txt")[0];
         List<string> Middle   = new List<string>();
-        List<string> Freshman     = new List<string>();
-        List<string> Softmore     = new List<string>();
-        List<string> Junior  = new List<string>();
+        List<string> Freshman = new List<string>();
+        List<string> Softmore = new List<string>();
+        List<string> Junior   = new List<string>();
         List<string> Senior   = new List<string>();
 
         Queue<Submission> sortedData = new Queue<Submission>();
@@ -38,11 +38,11 @@ namespace SpiritPointsClient
         public void LoadData()
         {
             readCount = int.Parse(File.ReadAllLines(Path.Combine(dataPath, "readCount.txt"))[0]);
-            Middle  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Middle")).ToList();
-            Freshman    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Freshman")).ToList();
-            Softmore    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Softmore")).ToList();
-            Junior = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Junior")).ToList();
-            Senior  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Senior")).ToList();
+            Middle    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Middle")).ToList();
+            Freshman  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Freshman")).ToList();
+            Softmore  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Softmore")).ToList();
+            Junior    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Junior")).ToList();
+            Senior    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Senior")).ToList();
             sortedData.Clear();
             analyzeSubmissions(Middle, Freshman, Softmore, Junior, Senior);
         }
@@ -115,7 +115,6 @@ public class Submission
         string noExtension = Path.GetFileNameWithoutExtension(path);
 
         name = noExtension.Remove(noExtension.Count() - 1 - subExtension.Count());
-        name = name.Replace('_', ' ');
 
         date = File.GetCreationTime(path).ToString("M/d/yyyy");
     }
