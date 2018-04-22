@@ -53,7 +53,7 @@ namespace SpiritPointsClient
         static float FindCurrentPoints(char gradeLetter, int dateRow)
         {
             // Define request parameters. Spirit Points 1qUOR2PH9xDhnlcazhRDe4_EQ6zdpZVAK923nHXdKsZY
-            String spreadsheetId = "1qUOR2PH9xDhnlcazhRDe4_EQ6zdpZVAK923nHXdKsZY";
+            String spreadsheetId = Program.SpreadSheetId;
             String range = "SPData!" + gradeLetter + dateRow;
             SpreadsheetsResource.ValuesResource.GetRequest request =
                     service.Spreadsheets.Values.Get(spreadsheetId, range);

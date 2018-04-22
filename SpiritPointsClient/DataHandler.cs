@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Renci.SshNet;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace SpiritPointsClient
 {
     public class DataHandler
     {
-        string dataPath       = File.ReadAllLines("DataPath.txt")[0];
+        //string dataPath       = File.ReadAllLines("DataPath.txt")[0];
         List<string> Middle   = new List<string>();
         List<string> Freshman = new List<string>();
         List<string> Softmore = new List<string>();
@@ -31,18 +32,19 @@ namespace SpiritPointsClient
             {
                 readCount = value;
                 string[] lines = { readCount + "" };
-                File.WriteAllLines(Path.Combine(dataPath, "readCount.txt"), lines);
+                File.WriteAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Data", "readCount.txt"), lines);
+                FTPManager.WriteLines("/home/DataPath/readCount.txt", lines);
             }
         }
 
         public void LoadData()
         {
-            readCount = int.Parse(File.ReadAllLines(Path.Combine(dataPath, "readCount.txt"))[0]);
-            Middle    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Middle")).ToList();
-            Freshman  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Freshman")).ToList();
-            Softmore  = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Softmore")).ToList();
-            Junior    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Junior")).ToList();
-            Senior    = Directory.GetFiles(Path.Combine(dataPath, "Pictures", "Senior")).ToList();
+            readCount = int.Parse(File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Data", "readCount.txt"))[0]);
+            Middle    =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Middle")).ToList();
+            Freshman  =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Freshman")).ToList();
+            Softmore  =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Softmore")).ToList();
+            Junior    =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Junior")).ToList();
+            Senior    =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Senior")).ToList();
             sortedData.Clear();
             analyzeSubmissions(Middle, Freshman, Softmore, Junior, Senior);
         }

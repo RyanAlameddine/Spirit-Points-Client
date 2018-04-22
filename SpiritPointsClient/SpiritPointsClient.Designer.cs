@@ -49,7 +49,7 @@
             // 
             // PictureBox
             // 
-            this.PictureBox.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.PictureBox.BackColor = System.Drawing.Color.BlueViolet;
             this.PictureBox.Location = new System.Drawing.Point(434, 12);
             this.PictureBox.Name = "PictureBox";
             this.PictureBox.Size = new System.Drawing.Size(568, 516);
@@ -133,19 +133,19 @@
             this.refresh.Name = "refresh";
             this.refresh.Size = new System.Drawing.Size(119, 121);
             this.refresh.TabIndex = 8;
-            this.refresh.Text = "Load and Refresh";
+            this.refresh.Text = "Load";
             this.refresh.UseVisualStyleBackColor = false;
             this.refresh.Click += new System.EventHandler(this.refresh_Click);
             // 
             // Version
             // 
             this.Version.AutoSize = true;
-            this.Version.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Version.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Version.Location = new System.Drawing.Point(351, 10);
             this.Version.Name = "Version";
-            this.Version.Size = new System.Drawing.Size(52, 31);
+            this.Version.Size = new System.Drawing.Size(45, 29);
             this.Version.TabIndex = 9;
-            this.Version.Text = "1.1";
+            this.Version.Text = "2.0";
             // 
             // Remaining
             // 

@@ -18,6 +18,7 @@ namespace SpiritPointsClient
             {
                 string[] lines = { value };
                 System.IO.File.WriteAllLines("SpreadSheetId.txt", lines);
+
             }
         }
 
