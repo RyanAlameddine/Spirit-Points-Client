@@ -22,6 +22,8 @@ namespace SpiritPointsClient
 
         public static PictureBox submissionPictureBox;
 
+        LocationViewer locationViewer;
+
         public SpiritPointsClient()
         {
             InitializeComponent();
@@ -100,6 +102,16 @@ namespace SpiritPointsClient
         {
             Settings settings = new Settings();
             settings.Show();
+        }
+
+        private void Location_Click(object sender, EventArgs e)
+        {
+            LocationViewer.location = LocationManager.Location_Load();
+            if(locationViewer == null ||locationViewer.IsDisposed)
+            {
+                locationViewer = new LocationViewer();
+            }
+            locationViewer.Show();
         }
     }
 }

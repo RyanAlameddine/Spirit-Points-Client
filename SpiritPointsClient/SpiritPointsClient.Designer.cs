@@ -43,6 +43,7 @@
             this.SettingsAndReset = new System.Windows.Forms.Button();
             this.EventBox = new System.Windows.Forms.TextBox();
             this.EventLabel = new System.Windows.Forms.Label();
+            this.LocationButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpiritPointValue)).BeginInit();
             this.SuspendLayout();
@@ -199,7 +200,7 @@
             // 
             this.SettingsAndReset.BackColor = System.Drawing.Color.White;
             this.SettingsAndReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SettingsAndReset.Location = new System.Drawing.Point(78, 425);
+            this.SettingsAndReset.Location = new System.Drawing.Point(21, 425);
             this.SettingsAndReset.Name = "SettingsAndReset";
             this.SettingsAndReset.Size = new System.Drawing.Size(266, 48);
             this.SettingsAndReset.TabIndex = 13;
@@ -225,12 +226,23 @@
             this.EventLabel.TabIndex = 15;
             this.EventLabel.Text = "Event:";
             // 
+            // LocationButton
+            // 
+            this.LocationButton.Location = new System.Drawing.Point(924, 480);
+            this.LocationButton.Name = "LocationButton";
+            this.LocationButton.Size = new System.Drawing.Size(78, 48);
+            this.LocationButton.TabIndex = 17;
+            this.LocationButton.Text = "View Location";
+            this.LocationButton.UseVisualStyleBackColor = true;
+            this.LocationButton.Click += new System.EventHandler(this.Location_Click);
+            // 
             // SpiritPointsClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1014, 540);
+            this.Controls.Add(this.LocationButton);
             this.Controls.Add(this.EventLabel);
             this.Controls.Add(this.EventBox);
             this.Controls.Add(this.SettingsAndReset);
@@ -272,6 +284,7 @@
         private System.Windows.Forms.Button SettingsAndReset;
         private System.Windows.Forms.TextBox EventBox;
         private System.Windows.Forms.Label EventLabel;
+        private System.Windows.Forms.Button LocationButton;
     }
 }
 
