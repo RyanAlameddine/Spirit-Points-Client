@@ -30,6 +30,7 @@ namespace SpiritPointsClient
         private void Submit_Click(object sender, EventArgs e)
         {
             FTPManager.Password = PasswordBox.Text;
+            FTPManager.Host = ip.Text;
             if (FTPManager.Connected())
             {
                 Close();

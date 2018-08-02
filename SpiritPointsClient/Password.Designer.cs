@@ -31,6 +31,7 @@
             this.PasswordBox = new System.Windows.Forms.TextBox();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.Submit = new System.Windows.Forms.Button();
+            this.ip = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // PasswordBox
@@ -65,11 +66,21 @@
             this.Submit.UseVisualStyleBackColor = true;
             this.Submit.Click += new System.EventHandler(this.Submit_Click);
             // 
+            // ip
+            // 
+            this.ip.Location = new System.Drawing.Point(12, 142);
+            this.ip.MaxLength = 64;
+            this.ip.Name = "ip";
+            this.ip.Size = new System.Drawing.Size(387, 20);
+            this.ip.TabIndex = 3;
+            this.ip.Text = "Ip Address";
+            // 
             // Password
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 148);
+            this.ClientSize = new System.Drawing.Size(411, 168);
+            this.Controls.Add(this.ip);
             this.Controls.Add(this.Submit);
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.PasswordBox);
@@ -86,5 +97,6 @@
         private System.Windows.Forms.TextBox PasswordBox;
         private System.Windows.Forms.Label PasswordLabel;
         private System.Windows.Forms.Button Submit;
+        private System.Windows.Forms.TextBox ip;
     }
 }
