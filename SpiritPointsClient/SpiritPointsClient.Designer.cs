@@ -36,7 +36,6 @@
             this.Accept = new System.Windows.Forms.Button();
             this.Deny = new System.Windows.Forms.Button();
             this.refresh = new System.Windows.Forms.Button();
-            this.Version = new System.Windows.Forms.Label();
             this.Remaining = new System.Windows.Forms.Label();
             this.Date = new System.Windows.Forms.Label();
             this.SpiritPointValue = new System.Windows.Forms.NumericUpDown();
@@ -137,16 +136,6 @@
             this.refresh.Text = "Load";
             this.refresh.UseVisualStyleBackColor = false;
             this.refresh.Click += new System.EventHandler(this.refresh_Click);
-            // 
-            // Version
-            // 
-            this.Version.AutoSize = true;
-            this.Version.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Version.Location = new System.Drawing.Point(351, 10);
-            this.Version.Name = "Version";
-            this.Version.Size = new System.Drawing.Size(45, 29);
-            this.Version.TabIndex = 9;
-            this.Version.Text = "2.0";
             // 
             // Remaining
             // 
@@ -249,7 +238,6 @@
             this.Controls.Add(this.SpiritPointValue);
             this.Controls.Add(this.Date);
             this.Controls.Add(this.Remaining);
-            this.Controls.Add(this.Version);
             this.Controls.Add(this.refresh);
             this.Controls.Add(this.Deny);
             this.Controls.Add(this.Accept);
@@ -277,7 +265,6 @@
         private System.Windows.Forms.Button Accept;
         private System.Windows.Forms.Button Deny;
         private System.Windows.Forms.Button refresh;
-        private System.Windows.Forms.Label Version;
         private System.Windows.Forms.Label Remaining;
         private System.Windows.Forms.Label Date;
         private System.Windows.Forms.NumericUpDown SpiritPointValue;

@@ -104,12 +104,15 @@ public class Submission
     public string name;
     public string grade;
     public string date;
+    public string eventName;
 
     public Submission(string path)
     {
         this.path = path;
         string fileName = Path.GetFileName(path);
-        string subExtension = Regex.Match(fileName, @"\.([^)]*)\.").Groups[1].Value;
+
+        eventName = Regex.Match(fileName, @"\.([^)]*)\.").Groups[1].Value;
+        string subExtension = Regex.Match(fileName, @"\.([^)]*)\.").Groups[2].Value;
         fileNumber = int.Parse(subExtension);
 
         grade = Path.GetFileName(Path.GetDirectoryName(path));

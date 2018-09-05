@@ -33,8 +33,7 @@ namespace SpiritPointsClient
             {
                 Enabled = false;
             }
-
-            Version.Text = Application.ProductVersion;
+            
         }
 
         private void Accept_Click(object sender, EventArgs e)
@@ -84,6 +83,7 @@ namespace SpiritPointsClient
             if (submission == null)
             {
                 PictureBox.Image = null;
+                EventBox.Text = "";
                 name .Text = "Name:";
                 Grade.Text = "Grade:";
                 Date .Text = "Date:";
@@ -93,6 +93,7 @@ namespace SpiritPointsClient
                 return;
             }
             PictureBox.Image = Image.FromFile(submission.path);
+            EventBox.Text = submission.eventName;
             name .Text = "Name: "  + submission.name;
             Grade.Text = "Grade: " + submission.grade;
             Date .Text = "Date: "  + submission.date;
