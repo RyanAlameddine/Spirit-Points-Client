@@ -57,10 +57,10 @@ namespace SpiritPointsClient
         {
             if(SpiritPointsClient.submissionPictureBox.Image != null)
                 SpiritPointsClient.submissionPictureBox.Image.Dispose();
-            if (Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Data")))
-            {
-                Directory.Delete(Path.Combine(Directory.GetCurrentDirectory(), "Data"), true);
-            };
+            //if (Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Data")))
+            //{
+            //    Directory.Delete(Path.Combine(Directory.GetCurrentDirectory(), "Data"), true);
+            //};
 
             Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "Data"));
 
@@ -120,5 +120,6 @@ namespace SpiritPointsClient
                 sftp.Disconnect();
             }
         }
+
     }
 }

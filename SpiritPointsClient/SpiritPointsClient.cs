@@ -33,7 +33,15 @@ namespace SpiritPointsClient
             {
                 Enabled = false;
             }
-            
+            if (Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Data")))
+            {
+                try {
+                    Directory.Delete(Path.Combine(Directory.GetCurrentDirectory(), "Data"), true);
+                }catch(Exception e)
+                {
+
+                }
+            };
         }
 
         private void Accept_Click(object sender, EventArgs e)
@@ -73,6 +81,7 @@ namespace SpiritPointsClient
             EventBox.Clear();
             NextSubmission();
             Enabled = true;
+            refresh.Enabled = false;
             Cursor = Cursors.Default;
         }
 
@@ -92,7 +101,14 @@ namespace SpiritPointsClient
 
                 return;
             }
-            PictureBox.Image = Image.FromFile(submission.path);
+            try
+            {
+                PictureBox.Image = Image.FromFile(submission.path);
+            }catch(Exception e)
+            {
+                Deny_Click(null, null);
+                return;
+            }
             EventBox.Text = submission.eventName;
             name .Text = "Name: "  + submission.name;
             Grade.Text = "Grade: " + submission.grade;
