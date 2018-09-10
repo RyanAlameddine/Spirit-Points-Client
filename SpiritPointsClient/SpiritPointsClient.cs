@@ -59,7 +59,7 @@ namespace SpiritPointsClient
 
         private void DeleteFile()
         {
-            string path = $"/home/DataPath/Pictures/{currentSubmission.grade}/{currentSubmission.name}.{currentSubmission.fileNumber}{Path.GetExtension(currentSubmission.path)}";
+            string path = $"/home/DataPath/Pictures/{currentSubmission.grade}/{currentSubmission.name}.{currentSubmission.eventName}.{currentSubmission.fileNumber}{Path.GetExtension(currentSubmission.path)}";
             new Task(() => FTPManager.DeleteFile(path)).Start();
         }
 

@@ -112,14 +112,15 @@ public class Submission
         string fileName = Path.GetFileName(path);
 
         eventName = Regex.Match(fileName, @"\.([^)]*)\.").Groups[1].Value;
-        string subExtension = Regex.Match(fileName, @"\.([^)]*)\.").Groups[2].Value;
+        string subExtension = eventName.Split('.')[1];
+        eventName = eventName.Split('.')[0];
         fileNumber = int.Parse(subExtension);
 
         grade = Path.GetFileName(Path.GetDirectoryName(path));
 
         string noExtension = Path.GetFileNameWithoutExtension(path);
 
-        name = noExtension.Remove(noExtension.Count() - 1 - subExtension.Count());
+        name = noExtension.Remove(noExtension.Count() - 1 - subExtension.Count()).Split('.')[0];
 
         date = File.GetCreationTime(path).ToString("M/d/yyyy");
     }
