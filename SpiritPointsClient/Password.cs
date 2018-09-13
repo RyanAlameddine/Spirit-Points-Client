@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +31,12 @@ namespace SpiritPointsClient
         private void Submit_Click(object sender, EventArgs e)
         {
             FTPManager.Password = PasswordBox.Text;
-            FTPManager.Host = ip.Text;
+            FTPManager.Host = "www.spiritpoints.org";
+            if(ip.Text != "")
+            {
+                string[] line = new string[] { ip.Text };
+                File.WriteAllLines(Path.Combine(Directory.GetCurrentDirectory(), "SpreadSheetId.txt"), line);
+            }
             if (FTPManager.Connected())
             {
                 Close();
@@ -38,7 +44,7 @@ namespace SpiritPointsClient
             else
             {
                 PasswordBox.Text = "";
-                MessageBox.Show("Password is incorrect. Please view the Instruction docs for the information.");
+                MessageBox.Show("Password or Ip Address is incorrect. Please view the Instruction docs for the information.");
             }
         }
 

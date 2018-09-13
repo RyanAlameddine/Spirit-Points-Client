@@ -68,12 +68,12 @@
             // 
             // ip
             // 
+            this.ip.BackColor = System.Drawing.SystemColors.HotTrack;
             this.ip.Location = new System.Drawing.Point(12, 142);
             this.ip.MaxLength = 64;
             this.ip.Name = "ip";
             this.ip.Size = new System.Drawing.Size(387, 20);
             this.ip.TabIndex = 3;
-            this.ip.Text = "Ip Address";
             // 
             // Password
             // 

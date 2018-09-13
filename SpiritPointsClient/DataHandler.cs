@@ -13,11 +13,12 @@ namespace SpiritPointsClient
     public class DataHandler
     {
         //string dataPath       = File.ReadAllLines("DataPath.txt")[0];
-        List<string> Middle   = new List<string>();
-        List<string> Freshman = new List<string>();
-        List<string> Softmore = new List<string>();
-        List<string> Junior   = new List<string>();
-        List<string> Senior   = new List<string>();
+        List<string> Seventh   = new List<string>();
+        List<string> Eighth    = new List<string>();
+        List<string> Freshman  = new List<string>();
+        List<string> Sophomore = new List<string>();
+        List<string> Junior    = new List<string>();
+        List<string> Senior    = new List<string>();
 
         Queue<Submission> sortedData = new Queue<Submission>();
 
@@ -39,14 +40,15 @@ namespace SpiritPointsClient
 
         public void LoadData()
         {
-            readCount = int.Parse(File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Data", "readCount.txt"))[0]);
-            Middle    =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Middle")).ToList();
-            Freshman  =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Freshman")).ToList();
-            Softmore  =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Softmore")).ToList();
-            Junior    =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Junior")).ToList();
-            Senior    =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Senior")).ToList();
+            readCount = int.Parse(File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), "Data", "readCount.txt"        ))[0]);
+            Seventh   =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Seventh"  )).ToList();
+            Eighth    =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Eighth"   )).ToList();
+            Freshman  =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Freshman" )).ToList();
+            Sophomore =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Sophomore")).ToList();
+            Junior    =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Junior"   )).ToList();
+            Senior    =          Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Data", "Pictures", "Senior"   )).ToList();
             sortedData.Clear();
-            analyzeSubmissions(Middle, Freshman, Softmore, Junior, Senior);
+            analyzeSubmissions(Seventh, Eighth, Freshman, Sophomore, Junior, Senior);
         }
 
         void analyzeSubmissions(params List<string>[] toSort)

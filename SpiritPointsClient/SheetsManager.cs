@@ -115,14 +115,25 @@ namespace SpiritPointsClient
             return matching;
         }
 
-        public static string CreateXML(List<string> middle, List<string> freshman, List<string> softmore, List<string> junior, List<string> senior)
+        public static string CreateXML(List<string> seventh, List<string> eighth, List<string> freshman, List<string> sophomore, List<string> junior, List<string> senior)
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.AppendLine("<optgroup label=\"Middle\">");
-            foreach (string name in middle)
+            stringBuilder.AppendLine("<optgroup label=\"Seventh\">");
+            foreach (string name in seventh)
             {
-                stringBuilder.Append("<option value=\"Middle.");
+                stringBuilder.Append("<option value=\"Seventh.");
+                stringBuilder.Append(name);
+                stringBuilder.Append("\">");
+                stringBuilder.Append(name);
+                stringBuilder.AppendLine("</option>");
+            }
+            stringBuilder.AppendLine("</optgroup>");
+
+            stringBuilder.AppendLine("<optgroup label=\"Eighth\">");
+            foreach (string name in eighth)
+            {
+                stringBuilder.Append("<option value=\"Eighth.");
                 stringBuilder.Append(name);
                 stringBuilder.Append("\">");
                 stringBuilder.Append(name);
@@ -143,10 +154,10 @@ namespace SpiritPointsClient
             stringBuilder.AppendLine("</optgroup>");
 
 
-            stringBuilder.AppendLine("<optgroup label=\"Softmore\">");
-            foreach (string name in softmore)
+            stringBuilder.AppendLine("<optgroup label=\"Sophomore\">");
+            foreach (string name in sophomore)
             {
-                stringBuilder.Append("<option value=\"Softmore.");
+                stringBuilder.Append("<option value=\"Sophomore.");
                 stringBuilder.Append(name);
                 stringBuilder.Append("\">");
                 stringBuilder.Append(name);

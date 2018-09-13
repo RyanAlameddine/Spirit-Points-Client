@@ -12,22 +12,23 @@ namespace SpiritPointsClient
 {
     public partial class Settings : Form
     {
-        public string Middle;
+        public string Seventh;
+        public string Eighth;
         public string Freshman;
-        public string Softmore;
+        public string Sophomore;
         public string Junior;
         public string Senior;
 
         public string SpreadSheetID;
 
         /*
-         * 0 - Nothing
-         * 1 - Creating Doc
-         * 2 - Middle
-         * 3 - Freshman
-         * 4 - Softmore
-         * 5 - Junior
-         * 6 - Senior
+         * 0 - Creating Doc
+         * 2 - Seventh
+         * 3 - Eighth
+         * 4 - Freshman
+         * 5 - Sophomore
+         * 6 - Junior
+         * 7 - Senior
          */
         
         int state = 0;
@@ -47,7 +48,7 @@ namespace SpiritPointsClient
                 Info.Show();
                 MainBox.Show();
                 NextButton.Show();
-                Info.Text = "View instructions at \nhttps://goo.gl/ius9Ta\nthen click next";
+                Info.Text = "View instructions at \r\ngoo.gl/77EZgm\r\nthen click next";
                 RequestNext();
             }
             else
@@ -68,59 +69,68 @@ namespace SpiritPointsClient
 
 
                     MainBox.Text = "";
-                    Info.Text = "Please enter the name of every student IN MIDDLESCHOOL\nseparated by a line\nI.e. Ryan Alameddine\nJohn Macleod";
+                    Info.Text = "Please enter the name of every student in SEVENTH GRADE\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
                     state++;
             }
             else if (state == 1)
             {
-                Middle = MainBox.Text;
-                Info.Text = "Please enter the name of every FRESHMAN\nseparated by a line\nI.e. Ryan Alameddine\nJohn Macleod";
+                Seventh = MainBox.Text;
+                Info.Text = "Please enter the name of every student in EIGHTH GRADE\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
                 MainBox.Text = "";
                 state++;
             }
             else if (state == 2)
             {
-                Freshman = MainBox.Text;
-                Info.Text = "Please enter the name of every SOFTMORE\nseparated by a line\nI.e. Ryan Alameddine\nJohn Macleod";
+                Eighth = MainBox.Text;
+                Info.Text = "Please enter the name of every FRESHMAN\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
                 MainBox.Text = "";
                 state++;
             }
             else if (state == 3)
             {
-                Softmore = MainBox.Text;
-                Info.Text = "Please enter the name of every JUNIOR\nseparated by a line\nI.e. Ryan Alameddine\nJohn Macleod";
+                Freshman = MainBox.Text;
+                Info.Text = "Please enter the name of every SOPHOMORE\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
                 MainBox.Text = "";
                 state++;
             }
             else if (state == 4)
             {
-                Junior = MainBox.Text;
-                Info.Text = "Please enter the name of every SENIOR\nseparated by a line\nI.e. Ryan Alameddine\nJohn Macleod";
+                Sophomore = MainBox.Text;
+                Info.Text = "Please enter the name of every JUNIOR\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
                 MainBox.Text = "";
                 state++;
             }
             else if (state == 5)
             {
+                Junior = MainBox.Text;
+                Info.Text = "Please enter the name of every SENIOR\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
+                MainBox.Text = "";
+                state++;
+            }
+            else if (state == 6)
+            {
                 Senior = MainBox.Text;
                 Info.Text = "Generating google sheets. Please wait.";
 
-                List<string> middle   = new List<string>(Middle  .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
-                List<string> freshman = new List<string>(Freshman.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
-                List<string> softmore = new List<string>(Softmore.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
-                List<string> junior   = new List<string>(Junior  .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
-                List<string> senior   = new List<string>(Senior  .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> seventh   = new List<string>(Seventh  .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> eighth    = new List<string>(Eighth   .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> freshman  = new List<string>(Freshman .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> sophomore = new List<string>(Sophomore.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> junior    = new List<string>(Junior   .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> senior    = new List<string>(Senior   .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
 
-                SheetsManager.CreateSheet("Middle"  , middle  );
-                SheetsManager.CreateSheet("Freshman", freshman);
-                SheetsManager.CreateSheet("Softmore", softmore);
-                SheetsManager.CreateSheet("Junior"  , junior  );
-                SheetsManager.CreateSheet("Senior"  , senior  );
+                SheetsManager.CreateSheet("Seventh"  , seventh  );
+                SheetsManager.CreateSheet("Eighth"   , eighth   );
+                SheetsManager.CreateSheet("Freshman" , freshman );
+                SheetsManager.CreateSheet("Sophomore", sophomore);
+                SheetsManager.CreateSheet("Junior"   , junior   );
+                SheetsManager.CreateSheet("Senior"   , senior   );
                 Info.Text = "Generating xml data. Please wait.";
-                MainBox.Text = SheetsManager.CreateXML(middle, freshman, softmore, junior, senior);
-                Info.Text = "Please find the file on Spirit Points Server\nnamed Index.cshtml and find the message saying\nto replace code. Replace the code between the\nmessages with the following code. The reset process is done.";
+                MainBox.Text = SheetsManager.CreateXML(seventh, eighth, freshman, sophomore, junior, senior);
+                Info.Text = "Please refer back to step 7 of goo.gl/77EZgm\r\nAfter this, the reset process is done so\r\nyou can close the window.";
                 state++;
             }
-            else if(state == 6)
+            else if(state == 7)
             {
 
             }
