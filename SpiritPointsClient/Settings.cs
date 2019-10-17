@@ -75,6 +75,8 @@ namespace SpiritPointsClient
             else if (state == 1)
             {
                 Seventh = MainBox.Text;
+                if (CheckForQuotes(Seventh)) return;
+
                 Info.Text = "Please enter the name of every student in EIGHTH GRADE\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
                 MainBox.Text = "";
                 state++;
@@ -82,6 +84,8 @@ namespace SpiritPointsClient
             else if (state == 2)
             {
                 Eighth = MainBox.Text;
+                if (CheckForQuotes(Eighth)) return;
+
                 Info.Text = "Please enter the name of every FRESHMAN\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
                 MainBox.Text = "";
                 state++;
@@ -89,6 +93,8 @@ namespace SpiritPointsClient
             else if (state == 3)
             {
                 Freshman = MainBox.Text;
+                if (CheckForQuotes(Freshman)) return;
+
                 Info.Text = "Please enter the name of every SOPHOMORE\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
                 MainBox.Text = "";
                 state++;
@@ -96,6 +102,8 @@ namespace SpiritPointsClient
             else if (state == 4)
             {
                 Sophomore = MainBox.Text;
+                if (CheckForQuotes(Sophomore)) return;
+
                 Info.Text = "Please enter the name of every JUNIOR\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
                 MainBox.Text = "";
                 state++;
@@ -103,6 +111,8 @@ namespace SpiritPointsClient
             else if (state == 5)
             {
                 Junior = MainBox.Text;
+                if (CheckForQuotes(Junior)) return;
+
                 Info.Text = "Please enter the name of every SENIOR\r\nseparated by a line\r\nI.e. Ryan Alameddine\r\nJohn Macleod\r\nMaya Le";
                 MainBox.Text = "";
                 state++;
@@ -110,6 +120,12 @@ namespace SpiritPointsClient
             else if (state == 6)
             {
                 Senior = MainBox.Text;
+                if (CheckForQuotes(Senior)) return;
+
+                Info.Text = "Clearing old pictures from website database. This may take a while. Please DO NOT close this program";
+                Refresh();
+                FTPManager.DeleteAll("Pictures");
+
                 Info.Text = "Generating google sheets. Please wait.";
 
                 List<string> seventh   = new List<string>(Seventh  .Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
@@ -125,8 +141,10 @@ namespace SpiritPointsClient
                 SheetsManager.CreateSheet("Sophomore", sophomore);
                 SheetsManager.CreateSheet("Junior"   , junior   );
                 SheetsManager.CreateSheet("Senior"   , senior   );
+
                 Info.Text = "Generating xml data. Please wait.";
                 MainBox.Text = SheetsManager.CreateXML(seventh, eighth, freshman, sophomore, junior, senior);
+
                 Info.Text = "Please refer back to step 7 of goo.gl/77EZgm\r\nAfter this, the reset process is done so\r\nyou can close the window.";
                 state++;
             }
@@ -134,6 +152,17 @@ namespace SpiritPointsClient
             {
 
             }
+        }
+
+        private bool CheckForQuotes(string str)
+        {
+            if (str.Contains('"'))
+            {
+                errorProvider1.SetError(MainBox, "CANNOT CONTAIN QUOTATIONS (\")");
+                return true;
+            }
+            errorProvider1.Clear();
+            return false;
         }
 
         private void RequestNext(object sender, EventArgs e)

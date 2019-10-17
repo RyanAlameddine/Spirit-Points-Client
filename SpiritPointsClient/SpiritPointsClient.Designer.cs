@@ -223,6 +223,7 @@
             this.LocationButton.TabIndex = 17;
             this.LocationButton.Text = "View Location";
             this.LocationButton.UseVisualStyleBackColor = true;
+            this.LocationButton.Visible = false;
             this.LocationButton.Click += new System.EventHandler(this.Location_Click);
             // 
             // SpiritPointsClient

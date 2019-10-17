@@ -15,7 +15,7 @@ namespace SpiritPointsClient
         public static String Host = "138.68.30.187";
         public static String Username = "root";
         public static String Password = "";
-            
+
         public static bool Connected()
         {
             var sftp = new SftpClient(Host, Port, Username, Password);
@@ -24,7 +24,8 @@ namespace SpiritPointsClient
                 sftp.Connect();
                 sftp.Disconnect();
                 return true;
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return false;
             }
@@ -55,7 +56,7 @@ namespace SpiritPointsClient
 
         public static void DownloadAll()
         {
-            if(SpiritPointsClient.submissionPictureBox.Image != null)
+            if (SpiritPointsClient.submissionPictureBox.Image != null)
                 SpiritPointsClient.submissionPictureBox.Image.Dispose();
             //if (Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Data")))
             //{
@@ -100,7 +101,7 @@ namespace SpiritPointsClient
                     {
                         if (file.IsDirectory)
                         {
-                            if(path != "")
+                            if (path != "")
                             {
                                 DownloadAll(path + "/" + file.Name);
                             }
@@ -121,5 +122,33 @@ namespace SpiritPointsClient
             }
         }
 
+        public static void DeleteAll(string path)
+        {
+
+            string remoteDirectory = "/home/DataPath/" + path + "/";
+
+            using (var sftp = new SftpClient(Host, Port, Username, Password))
+            {
+                sftp.Connect();
+                var files = sftp.ListDirectory(remoteDirectory);
+
+                foreach (var file in files)
+                {
+                    if ((!file.Name.StartsWith(".")))
+                    {
+                        if (file.IsDirectory)
+                        {
+
+                            DeleteAll(path + "/" + file.Name);
+                            continue;
+                        }
+                        sftp.DeleteFile(remoteDirectory + "/" + file.Name);
+                    }
+                }
+
+                sftp.Disconnect();
+
+            }
+        }
     }
 }

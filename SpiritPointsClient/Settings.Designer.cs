@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.reset = new System.Windows.Forms.Button();
             this.MainBox = new System.Windows.Forms.RichTextBox();
             this.NextButton = new System.Windows.Forms.Button();
             this.Info = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // reset
@@ -78,6 +81,10 @@
             this.Info.TabStop = false;
             this.Info.Visible = false;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -89,6 +96,7 @@
             this.Controls.Add(this.reset);
             this.Name = "Settings";
             this.Text = "Settings";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -100,5 +108,6 @@
         private System.Windows.Forms.RichTextBox MainBox;
         private System.Windows.Forms.Button NextButton;
         private System.Windows.Forms.TextBox Info;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
